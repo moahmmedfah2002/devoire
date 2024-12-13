@@ -32,24 +32,24 @@ public class ThreadOut extends Thread{
     @SneakyThrows
     public void run(){
 
-            String s = null;
-            try {
-                s = String.valueOf(ClassLoader.getSystemResource("input/").toURI().toString()).substring(6).replace("/", "//");
-            } catch (URISyntaxException e) {
-                throw new RuntimeException(e);
-            }
 
-            File file = new File(s);
+
+        String s = "../input/";
+
+
+        File file = new File(s);
+
         synchronized (mutex) {
 
             while (true) {
-                mutex.wait();
+
+
 
                 File[] directory = file.listFiles();
                 assert directory != null;
                 for (File f : directory) {
                     if (f.getName().contains(".json")) {
-                        mutex.wait();
+
                         System.out.println(f.getName());
                         ObjectMapper mapper = new ObjectMapper();
                         JsonNode jsonNode = mapper.readTree(f);
@@ -82,24 +82,27 @@ public class ThreadOut extends Thread{
 
 
                             }
-                            String s1 = String.valueOf(ClassLoader.getSystemResource("output/").toURI().toString()).substring(6).replace("/", "//");
+                            String s1 = "../output/";
                             File f1 = new File(s1 + f.getName());
                             mapper.writeValue(f1,jsonNode);
                             System.out.println(mapper.writeValueAsString(orders));
 
 
                         } catch (Exception e) {
-                            String s1 = String.valueOf(ClassLoader.getSystemResource("erreur/").toURI().toString()).substring(6).replace("/", "//");
-
+                            String s1 = "../erreur/";
                             File f1 = new File(s1 + f.getName());
                             f1.createNewFile();
                             mapper.writeValue(f1,jsonNode);
                             e.printStackTrace();
 
+
                         }
 
 
                         f.delete();
+                        mutex.notify();
+                        mutex.wait();
+
 
 
                     }

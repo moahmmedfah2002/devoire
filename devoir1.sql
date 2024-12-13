@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `costumer`
 --
 
-DROP TABLE IF EXISTS `costumer`;
+
 CREATE TABLE IF NOT EXISTS `costumer` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) NOT NULL,
@@ -40,8 +40,6 @@ CREATE TABLE IF NOT EXISTS `costumer` (
 -- Dumping data for table `costumer`
 --
 
-INSERT INTO `costumer` (`id`, `nom`, `email`, `phone`) VALUES
-(1, 'fahlaoui', 'fahlaouimohammed@gmail.com', '0680622793');
 
 -- --------------------------------------------------------
 

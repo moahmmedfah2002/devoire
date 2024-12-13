@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ensa" type="docker-deploy" factoryName="docker-image" editBeforeRun="true" focusToolWindowBeforeRun="true" singleton="false" server-name="Docker">
+    <deployment type="docker-image">
+      <settings>
+        <option name="imageTag" value="ma.ensa/thread:latest" />
+        <option name="containerName" value="ensa" />
+      </settings>
+    </deployment>
+    <method v="2" />
+  </configuration>
+</component>

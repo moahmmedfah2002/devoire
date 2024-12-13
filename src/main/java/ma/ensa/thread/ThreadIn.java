@@ -31,11 +31,12 @@ public class ThreadIn extends Thread{
                 try {
 
 
-                    s = String.valueOf(ClassLoader.getSystemResource("input/").toURI().toString()).substring(6).replace("/", "//");
+                    s = "../input/";
                     File file = new File(s + System.currentTimeMillis() + ".json");
+//                    File file = new File("input/"+System.currentTimeMillis() + ".json");
                     if (file.createNewFile()) {
-                        FileReader actualFile = new FileReader(file);
-                        actualFile.close();
+//                        FileReader actualFile = new FileReader(file);
+//                        actualFile.close();
                         ObjectMapper mapper = new ObjectMapper();
                         JsonNode root = mapper.readTree(file);
                         ObjectNode obj = mapper.createObjectNode();
@@ -56,7 +57,8 @@ public class ThreadIn extends Thread{
 
 
                         mapper.writeValue(file, obj);
-                        mutex.notify();
+
+
 
 
                     } else {
@@ -64,19 +66,26 @@ public class ThreadIn extends Thread{
 
                     }
 
-                } catch (URISyntaxException | IOException e) {
+                } catch (  IOException e) {
                     throw new RuntimeException(e);
                 }
                 try {
-                    sleep(1000);
+                    sleep(10000);
+
 
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
 
 
+                    mutex.notify();
+                    try {
+                        mutex.wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
 
-            }
+                }
         }
     }
 
